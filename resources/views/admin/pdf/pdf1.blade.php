@@ -154,22 +154,26 @@
       </tr>
     </table>
     <h4 id="title">Response</h4>
-    <img class="image" src="images/file.png" height="200px" width="200px" align="left">
+    <img class="image" src="images/cake_res.png" height="200px" width="200px" align="left">
     <table id="content">
-      <tr>
-        <td>
-          <ul class="list">
-            <?php foreach ($data as $dt): 
-            $p = round(($dt->value / $sum) * 100);
-            ?>
-            <li><p>{{ $dt->name }} {{ $dt->value }} <b>{{ $p }}%</b></p></li>
-          <?php endforeach ?>
-        </ul></td>
-      </tr>
+      <tbody>
+        @foreach ($access as $dt)
+        @php
+        $pr = round(($dt->value / $sm) * 100);
+        @endphp
+        <tr>
+          <td><img src="images/sp-0.png" alt="image" width="10px" height="10px"></td>
+          <td>{{ $dt->code }}</td>
+          <td>{{ $dt->name }}</td>
+          <td>{{ $dt->value }}</td>
+          <td>{{ $pr }}%</td>
+          </tr>
+          @endforeach
       <tr>
         <td id="paragraf" colspan="4"><p>When we Index a domain there can be four type of response. If a domain name is 'available' it means that we have received a valid response with status code 1xx or 2xx . A domain can also result in a 'host not found' response . This means there is no IP configured in the DNS for this domain . If the response is a 'redirect' then we received a service side redirect with status code 3xx. The last response type is an 'Access denied', this means the crawler could not access the website and recieved status code 4xx, 5xx, or 9xx. The following paragraph gives more details about the cause of the access denied.
         </p></td>
       </tr>
+    </tbody>
     </table>
     <h4 id="title">Access Denied</h4>
     <table class="full">
@@ -180,16 +184,21 @@
         </td>
       </tr>
     </table>
-    <img src="images/canvas2.png" alt="image" class="image2">
+    <img src="images/span_1.png" alt="image" class="image2">
     <table class="full">
       <tbody>
-        <ul class="list">
-          <?php foreach ($access as $dt): 
-          $pr = round(($dt->value / $sm) * 100);
-          ?>
-            <li><p>{{ $dt->code }}{{ $dt->name }} {{ $dt->value }} <b>{{ $pr }}%</b></p></li>
-          <?php endforeach ?>
-        </ul>
+        @foreach ($access as $dt)
+        @php
+        $pr = round(($dt->value / $sm) * 100);
+        @endphp
+        <tr>
+          <td><img src="images/sp-0.png" alt="image" width="10px" height="10px"></td>
+          <td>{{ $dt->code }}</td>
+          <td>{{ $dt->name }}</td>
+          <td>{{ $dt->value }}</td>
+          <td>{{ $pr }}%</td>
+          </tr>
+          @endforeach
       </tbody>
     </table>
   </div>

@@ -65,4 +65,4 @@ Route::get('/doc', 'ReportController@report_doc');
 Route::get('/doc1', 'DocController@print');
 
 Route::get('/chart_render', 'PageController@chartjs1');
-Route::get('/print_new', 'PrintController@index');
+Route::get('/print_new', 'PrintController@pdf');
