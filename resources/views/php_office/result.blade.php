@@ -519,18 +519,18 @@ $un = round(($sum4 / $tot) *100);
   </p>
   <table class="full">
     <tbody>
-        @foreach ($sub as $dt)
-        @php
-        $pr_s = round(($dt->value / $sum10) * 100);
-        @endphp
-        <tr>
-          <td>{{ $dt->name }}</td>
-          <td></td>
-          <td>({{ $dt->value }})</td>
-          <td><b>{{ $pr_s }}%</b></td>
-        </tr>
-        @endforeach
-        <tr>
+      @foreach ($sub as $dt)
+      @php
+      $pr_s = round(($dt->value / $sum10) * 100);
+      @endphp
+      <tr>
+        <td>{{ $dt->name }}</td>
+        <td></td>
+        <td>({{ $dt->value }})</td>
+        <td><b>{{ $pr_s }}%</b></td>
+      </tr>
+      @endforeach
+      <tr>
       </tbody>
     </table>
     <br><br>
@@ -541,43 +541,258 @@ $un = round(($sum4 / $tot) *100);
       The domain Name System (DNS) is a naming system for doamin names. It translate domain names to numerical IP address. 
     </p>
     <h4 id="title">DNS type</h4>
-  
+
     <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/bar_2.png'}}" />
     <table id="content">
-
+      @php $ij0 =0;
+      @endphp
+      @foreach ($dns as $dt)
+      @php
+      $per_dns = round(($dt->value / $sum11) * 100);
+      @endphp
+      <tr>
+        <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $ij0 . '.png'}}" /></td>
+        <td>{{ $dt->name }}</td>
+        <td>{{ $dt->value }}</td>
+        <td><b>{{ $per_dns }}%</b></td>
+      </tr>
+      @php  $ij0++;
+      @endphp
+      @endforeach
     </table>
     <h4 id="title">DNS TXT</h4>
-    <p class="paragraf">
+    <p class="justify">
       Dataprovider.com does not only index the website, we also index the DNS records. For each domain we collect the A(IPv4), AAAA coverage of these records in the zone file. 
     </p>
-    <table>
+    <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_6.png'}}" />
+    <table class="full">
       <tbody>
-
+        @php $ok0 =0;
+        @endphp
+        @foreach ($dns_txt as $dt)
+        @php
+        $per_txt = round(($dt->value / $sum12) * 100);
+        @endphp
+        <tr>
+          <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $ok0 . '.png'}}" /></td>
+          <td>{{ $dt->name }}</td>
+          <td>{{ $dt->value }}</td>
+          <td><b>{{ $per_txt }}%</b></td>
+          <td>{{ $dt->ket }}</td>
+        </tr>
+        @php  $ok0++;
+        @endphp
+        @endforeach
       </tbody>
     </table>
     <h4 id="title">Top 5 MX domians</h4>
     <table class="full">
       <tbody>
+       @php $vk0 =0;
+       @endphp
+       @foreach ($mx as $dt)
+       @php
+       $per_mx = round(($dt->value / $sum13) * 100);
+       @endphp
+       <tr>
+        <td>{{ $dt->name }}</td>
+        <td></td>
+        <td>{{ $dt->value }}</td>
+        <td><b>{{ $per_mx }}%</b></td>
+      </tr>
+      @php  $vk0++;
+      @endphp
+      @endforeach
+    </tbody>
+  </table>
+  <br><br>
 
-      </tbody>
-    </table>
-    <br><br>
+  <!-- page 9 -->
+  <h4 id="title">DNS AAAA records IPV6</h4>
+  <p class="justify">
+    Every device on the internet is assigned a unique IP. with the rapid growth of the internet in the 1990s, it became evident that far more address would be needed to connect devices than the IPV4 address spaced had available. IPV6 was to deal with the longanticipated problem of IPv4 address exhaustion . IPv6 is intented to replace IPv4. Not many devices make use of IPv6 yet. The following chart show the availibility of IPv6. 
+  </p>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_7.png'}}" />
+  <p class="left">Yes</p>
+  <p class="right">No</p>
+  <h4 id="title">DNS NS(Nameserver)</h4>
+  <p class="justify">
+    The NS record (nameserver) is a computer that is permanently connected to the internet and translates domain names into IP address. it contains the DNS of domain with all IP address that belong to that domain. Mostly the NS record contains a hostname of the register were the domain is registered . The following chart shows the most used nameserver (registars).
+  </p>
+  <h5>Top 10 DNS NS domains</h5>
+  <table class="full">
+    <tbody>
+      @php $vk0 =0;
+      @endphp
+      @foreach ($dns_ns as $dt)
+      @php
+      $per_ns = round(($dt->value / $sum14) * 100);
+      @endphp
+      <tr>
+        <td>{{ $dt->name }}</td>
+        <td></td>
+        <td>{{ $dt->value }}</td>
+        <td><b>{{ $per_ns }}%</b></td>
+      </tr>
+      @php  $vk0++;
+      @endphp
+      @endforeach
+    </tbody>
+  </table>
+  <br><br>
 
-    <!-- page 9 -->
-    <h4 id="title">DNS AAAA records IPV6</h4>
-    <p class="justify">
-      Every device on the internet is assigned a unique IP. with the rapid growth of the internet in the 1990s, it became evident that far more address would be needed to connect devices than the IPV4 address spaced had available. IPV6 was to deal with the longanticipated problem of IPv4 address exhaustion . IPv6 is intented to replace IPv4. Not many devices make use of IPv6 yet. The following chart show the availibility of IPv6. 
-    </p>
-    <img src="images/canvas8.png" alt="image" class="image2">
-    <h4 id="title">DNS NS(Nameserver)</h4>
-    <p class="justify">
-      The NS record (nameserver) is a computer that is permanently connected to the internet and translates domain names into IP address. it contains the DNS of domain with all IP address that belong to that domain. Mostly the NS record contains a hostname of the register were the domain is registered . The following chart shows the most used nameserver (registars).
-    </p>
-    <table class="full">
-      <tbody>
+  <!--  page 10 -->
+  <h4 id="title">WHOIS</h4>
+  <p class="justify">
+    The WHOIS (~who is) database contains the registration information for internet resources such as domain names. WHOIS informataion has limited availability via registrars and registries. Dataprovider.com has the WHOIS records for many domains, but not all of them. 
+  </p>
+  <h4 id="title">WHOIS coverage</h4>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_8.png'}}" />
+  <p class="left">Yes</p>
+  <p class="right">No</p>
+  <h4 id="title">Privacy protection</h4>
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/cake_priv.png'}}" />
+  <table id="content">
+    @php $z3012 =0;
+    @endphp
+    @foreach ($privacy as $dt)
+    @php
+    $pr_priv = round(($dt->value / $sum0y) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $z3012 . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $pr_priv }}%</b></td>
+    </tr>
+    @php  $z3012++;
+    @endphp
+    @endforeach
+    <tr>
+      <td id="paragraf" colspan="4"><p class="justify">
+        Most domain names registered through a registrar require the collection of essential contact information, such as the registrant's name, email adress, mailing address, phone number etc. This information is used in case dispute arises about the domain name. This information is displayed in the global whois system which is public and can be viewed by anyone. if you would like to keep your contact information private for a domain then ou can use a WHOIS privacy service like WhoisGuard, Domains by Proxy or Whois agent. Not every registrant fills out all his information . The following chart shows the completeness of the available  WHOIS information.
+      </p></td>
+    </tr>
+  </table>
+  <h4 id="title">Completeness</h4>
+  <table class="full">
+    <tbody>
 
-      </tbody>
-    </table>
-  </div> <!-- container -->
+      @foreach ($complet as $dt)
+      <tr>
+        <td>{{ $dt->name }}</td>
+        <td></td>
+        <td>{{ $dt->value }}</td>
+        <td><b>%</b></td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+  <br><br>
+
+  <!--  page 11 -->
+  <h4 id="title">SSL</h4>
+  <p class="justify">
+    SSL (Secure Sockets Layers) is a security technology that encrypts communication between a browser and a server. You can recognize if a website uses SSL by checking if there is a small green lock in the address bar.
+  </p>
+  <p class="justify">
+    SSl certificates are utilized by millions of online bussinesses and individuals to decrease the risk of sensitive information being stolen or tempered with by hackers or identify thieves.
+  </p>
+  <h4 class="bold">SSL enabled</h4>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_9.png'}}" />
+  <p class="left">Yes</p>
+  <p class="right">No</p>
+  <p class="justify">
+    When we index a website we always start by resolving the hostname. we check if there is a valid response and obtain the IP address. We use this IP address to setup  an SSL connection betwen the crawler and the server. After authentication the spider retrieves all the SSL certificate information such as the SSL type, issuer organization, and expiration dates.
+  </p>
+  <h4 class="bold">SSL types</h4>
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/cake_ssl.png'}}" />
+  <table id="content">
+    @php $ol =0;
+    @endphp
+    @foreach ($ssl as $dt)
+    @php
+    $per_ssl = round(($dt->value / $sum15) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $ol . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_ssl }}%</b></td>
+    </tr>
+    @php  $ol++;
+    @endphp
+    @endforeach
+    <tr>
+      <td id="paragraf" colspan="4"><p class="justify">
+        There are 3 type of certificate available: Domain validation, Organization Validation, and Extended validation . Domain validation is default. 
+      </p></td>
+    </tr>
+  </table>
+  <br><br>
+
+  <!-- page 12 -->
+  <h4 class="bold">Privacy sensitive websites using SSL</h4>
+  <p class="justify">
+    privacy sensitive websites are websites  that store personal information such as contact or payment details. Websites that offer the possibility to create an account, log into a system, fill in a contact form or process a payment are examples of privacy sensitive websites. these websites should have an SSL certificate installed and transmit the information via https. The following chart shows how many privacy sensitive websites have SSL installed. 
+  </p>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_10.png'}}" />
+  <p class="left">Yes</p>
+  <p class="right">No</p>
+  <br><br>
+  <h4 class="bold">SSL issuer organization</h4>
+  <p class="justify">
+    The certificate issuer organization is responsible for delivering the certificate to a website . An SSL certificate is a digital certificate that authenticates the identity of a website and encrypts information sent. These certificates can only be issued by a certificate Authority . The following chart shows the top issuer organization.
+  </p>
+  <h5>Top 10 SSL issuer organization</h5>
+  <table class="full">
+    <tbody>
+      @php $vkl =0;
+      @endphp
+      @foreach ($issue as $dt)
+      @php
+      $per_iss = round(($dt->value / $sum16) * 100);
+      @endphp
+      <tr>
+        <td>{{ $dt->name }}</td>
+        <td></td>
+        <td>{{ $dt->value }}</td>
+        <td><b>{{ $per_iss }}%</b></td>
+      </tr>
+      @php  $vkl++;
+      @endphp
+      @endforeach
+    </tbody>
+  </table>
+  <br><br>
+
+  <!--  page 13 -->
+  <h4 class="bold">Content</h4>
+  <p class="justify">
+    if there is a website available on the domain the Dataprovider.com indexes 10-20 pages of each website . Using this content we can identity language country, size of the website and the use of social media.
+  </p>
+  <h4 class="bold">Language</h4>
+  <table id="table_left">
+    @php $ol =0;
+    @endphp
+    @foreach ($ssl as $dt)
+    @php
+    $per_ssl = round(($dt->value / $sum15) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $ol . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_ssl }}%</b></td>
+    </tr>
+    @php  $ol++;
+    @endphp
+    @endforeach
+  </table>
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/sp-' . $ol . '.png'}}" />
+  <p class="justify">
+    We currently recognize languages from 50 different countries. Our crawler determines the language of a website by using an n-gram model. An n-gram is a contiguous sequence of n items from a given sequence of text or speech. An n-gram model models sequences, notably natural languages, using the statistical properties of n-gram. The chart above shows the top there detected languages.
+  </p>
+</div> <!-- container -->
 </body>
 </html>

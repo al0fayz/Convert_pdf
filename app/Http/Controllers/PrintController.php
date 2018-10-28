@@ -630,6 +630,13 @@ class PrintController extends Controller
 		$sum14 = array_sum($val14);
 		//page 10
 		$complet = DB::table('completeness')->get();
+		$privacy = DB::table('privacy')->get();
+		$y0y = 0;
+		foreach ($privacy as $key => $dt) {
+			$val15a[$y0y] = $dt->value;
+			$y0y++;
+		}
+		$sum0y = array_sum($val15a);
 		//page11
 		$ssl = DB::table('ssl_type')->get();
 		$p = 0;
@@ -714,6 +721,7 @@ class PrintController extends Controller
 			'page' => $page_w,
 			'social_media' => $social_media,
 			'social_type' => $social_type,
+			'privacy' => $privacy,
 			'sum1' => $sum1,
 			'sum2' => $sum2,
 			'sum3' => $sum3,
@@ -735,6 +743,7 @@ class PrintController extends Controller
 			'sum19' => $sum19,
 			'sum20' => $sum20,
 			'sum21' => $sum21,
+			'sum0y' =>$sum0y,
 		];
 		$pdf = PDF::loadView('php_office/result', $data)->setPaper('a4');
 		return $pdf->stream('invoice.pdf');

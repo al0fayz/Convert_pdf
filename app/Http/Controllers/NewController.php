@@ -21,6 +21,7 @@ class NewController extends Controller
         $this->image_6();
         $this->image_7();
         $this->image_8();
+        $this->image_9();
         $this->span_1();
         $this->span_2();
         $this->span_3();
@@ -38,11 +39,18 @@ class NewController extends Controller
         $this->bar_2();
         $this->bar_3();
         $this->bar_4();
+        $this->img_table1();
+        $this->img_table2();
+        $this->img_table3();
+        $this->img_table4();
+        $this->img_table5();
+        $this->img_table6();
+       
     }
     private function image_1(){
-       $response = DB::table('response')->get();
-       $a = 0;
-       foreach ($response as $key => $dt) {
+     $response = DB::table('response')->get();
+     $a = 0;
+     foreach ($response as $key => $dt) {
         $val1[$a] = $dt->value;
         $name1[$a] = $dt->name;
         $a++;
@@ -236,6 +244,32 @@ private function image_8(){
     $pieChart->draw2DRing(90, 90, ["DrawLabels" => false, "LabelStacked" => false, "Border" => false]);
     $image->Render("images/cake_ssl.png");
 }
+private function image_9(){
+    $language = DB::table('language')->get();
+    $r = 0;
+    foreach ($language as $key => $dt) {
+        $name[$r] = $dt->name;
+        $val17[$r] = $dt->value;
+        $r++;
+    }
+    $sum17 = array_sum($val17);
+    $i=0;
+    foreach ($val17 as $key => $v) {
+        $per[$i] = round(($v / $sum17) * 100);
+        $i++;
+    }
+        //doughnut
+    $data = new Data();
+    $data->addPoints($per, "value");
+    
+    $data->addPoints($name, "Labels");
+    $data->setAbscissa("Labels");
+
+    $image = new Image(180, 180, $data);
+    $pieChart = new Pie($image, $data);
+    $pieChart->draw2DRing(90, 90, ["DrawLabels" => false, "LabelStacked" => false, "Border" => false]);
+    $image->Render("images/cake_lang.png");
+}
 private function span_1(){
     $im = imagecreatetruecolor(1000, 40);
     $Palette = [
@@ -256,7 +290,7 @@ private function span_1(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum = array_sum($val);
     $a =0;
     $b =0;
@@ -297,7 +331,7 @@ private function span_2(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum1 = array_sum($val);
     $un = DB::table('undeveloped')->get();
     $j = 0;
@@ -305,7 +339,7 @@ private function span_2(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum2 = array_sum($val);
     $tot = $sum1 + $sum2;
     $per_dev = round(($sum1 / $tot) *1000);
@@ -364,7 +398,7 @@ private function span_4(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum = array_sum($val);
     $a =0;
     $b =0;
@@ -430,7 +464,7 @@ private function span_6(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum = array_sum($val);
     $a =0;
     $b =0;
@@ -574,7 +608,7 @@ private function span_11(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum = array_sum($val);
     $a =0;
     $b =0;
@@ -640,7 +674,7 @@ private function span_13(){
         $val[$j] = $dt->value;
         $j++;
     }
-   
+
     $sum = array_sum($val);
     $a =0;
     $b =0;
@@ -678,41 +712,41 @@ private function bar_1(){
     $black = imagecolorallocate($im, 0, 0, 0);
     $website = DB::table('website')->get();
     $count = DB::table('website')->select('value')->count();
-        $i = 0;
-        foreach ($website as $key => $dt) {
-            $name[$i] = $dt->website;
-            $val[$i] = $dt->value;
-            $i++;
-        }
-        if($count >= 10){
-            $devided = (400 / $count)-10;
-        }else{
+    $i = 0;
+    foreach ($website as $key => $dt) {
+        $name[$i] = $dt->website;
+        $val[$i] = $dt->value;
+        $i++;
+    }
+    if($count >= 10){
+        $devided = (400 / $count)-10;
+    }else{
         $devided = (400 / 10)-10;
-        }
-        $a = 0;
-        $b = 0;
-        $c = $devided;
-        
-        $sum = array_sum($val);
-        imagefilledrectangle($im, 0, 0, 400, 400, $white);
-        foreach ($val as $key => $v) {
-            $per[$a] = round(($v / $sum) * 400);
-            $nil[$a] = (400 - $per[$a]) -5;
-            imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
-            $b += $devided;
-            $c += $devided;
-            $c += 10;
-            $b += 10;
-            $a++;
-        }
+    }
+    $a = 0;
+    $b = 0;
+    $c = $devided;
+
+    $sum = array_sum($val);
+    imagefilledrectangle($im, 0, 0, 400, 400, $white);
+    foreach ($val as $key => $v) {
+        $per[$a] = round(($v / $sum) * 400);
+        $nil[$a] = (400 - $per[$a]) -5;
+        imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
+        $b += $devided;
+        $c += $devided;
+        $c += 10;
+        $b += 10;
+        $a++;
+    }
         // dd($nil);
          // imagefilledrectangle($im, 0, 400, 60, 100, $Palette[0]);
          // imagefilledrectangle($im, 70, 400, 130, 200, $Palette[1]);
          // imagefilledrectangle($im, 140, 400, 210, 200, $Palette[2]);
          // imagefilledrectangle($im, 220, 400, 290, 80, $Palette[3]);
-         imagefilledrectangle($im, 0, 395, 400, 400, $black);
-         
-        
+    imagefilledrectangle($im, 0, 395, 400, 400, $black);
+
+
     // Save the image
     imagepng($im, './images/bar_1.png');
     imagedestroy($im);
@@ -735,40 +769,40 @@ private function bar_2(){
     $black = imagecolorallocate($im, 0, 0, 0);
     $website = DB::table('dns')->get();
     $count = DB::table('dns')->select('value')->count();
-        $i = 0;
-        foreach ($website as $key => $dt) {
-            $val[$i] = $dt->value;
-            $i++;
-        }
-        if($count >= 10){
-            $devided = (400 / $count)-10;
-        }else{
+    $i = 0;
+    foreach ($website as $key => $dt) {
+        $val[$i] = $dt->value;
+        $i++;
+    }
+    if($count >= 10){
+        $devided = (400 / $count)-10;
+    }else{
         $devided = (400 / 10)-10;
-        }
-        $a = 0;
-        $b = 0;
-        $c = $devided;
-        
-        $sum = array_sum($val);
-        imagefilledrectangle($im, 0, 0, 400, 400, $white);
-        foreach ($val as $key => $v) {
-            $per[$a] = round(($v / $sum) * 400);
-            $nil[$a] = (400 - $per[$a]) -5;
-            imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
-            $b += $devided;
-            $c += $devided;
-            $c += 10;
-            $b += 10;
-            $a++;
-        }
+    }
+    $a = 0;
+    $b = 0;
+    $c = $devided;
+
+    $sum = array_sum($val);
+    imagefilledrectangle($im, 0, 0, 400, 400, $white);
+    foreach ($val as $key => $v) {
+        $per[$a] = round(($v / $sum) * 400);
+        $nil[$a] = (400 - $per[$a]) -5;
+        imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
+        $b += $devided;
+        $c += $devided;
+        $c += 10;
+        $b += 10;
+        $a++;
+    }
         // dd($nil);
          // imagefilledrectangle($im, 0, 400, 60, 100, $Palette[0]);
          // imagefilledrectangle($im, 70, 400, 130, 200, $Palette[1]);
          // imagefilledrectangle($im, 140, 400, 210, 200, $Palette[2]);
          // imagefilledrectangle($im, 220, 400, 290, 80, $Palette[3]);
-         imagefilledrectangle($im, 0, 395, 400, 400, $black);
-         
-        
+    imagefilledrectangle($im, 0, 395, 400, 400, $black);
+
+
     // Save the image
     imagepng($im, './images/bar_2.png');
     imagedestroy($im);
@@ -791,40 +825,40 @@ private function bar_3(){
     $black = imagecolorallocate($im, 0, 0, 0);
     $website = DB::table('countries')->get();
     $count = DB::table('countries')->select('value')->count();
-        $i = 0;
-        foreach ($website as $key => $dt) {
-            $val[$i] = $dt->value;
-            $i++;
-        }
-        if($count >= 10){
-            $devided = (400 / $count)-10;
-        }else{
+    $i = 0;
+    foreach ($website as $key => $dt) {
+        $val[$i] = $dt->value;
+        $i++;
+    }
+    if($count >= 10){
+        $devided = (400 / $count)-10;
+    }else{
         $devided = (400 / 10)-10;
-        }
-        $a = 0;
-        $b = 0;
-        $c = $devided;
-        
-        $sum = array_sum($val);
-        imagefilledrectangle($im, 0, 0, 400, 400, $white);
-        foreach ($val as $key => $v) {
-            $per[$a] = round(($v / $sum) * 400);
-            $nil[$a] = (400 - $per[$a]) -5;
-            imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
-            $b += $devided;
-            $c += $devided;
-            $c += 10;
-            $b += 10;
-            $a++;
-        }
+    }
+    $a = 0;
+    $b = 0;
+    $c = $devided;
+
+    $sum = array_sum($val);
+    imagefilledrectangle($im, 0, 0, 400, 400, $white);
+    foreach ($val as $key => $v) {
+        $per[$a] = round(($v / $sum) * 400);
+        $nil[$a] = (400 - $per[$a]) -5;
+        imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
+        $b += $devided;
+        $c += $devided;
+        $c += 10;
+        $b += 10;
+        $a++;
+    }
         // dd($nil);
          // imagefilledrectangle($im, 0, 400, 60, 100, $Palette[0]);
          // imagefilledrectangle($im, 70, 400, 130, 200, $Palette[1]);
          // imagefilledrectangle($im, 140, 400, 210, 200, $Palette[2]);
          // imagefilledrectangle($im, 220, 400, 290, 80, $Palette[3]);
-         imagefilledrectangle($im, 0, 395, 400, 400, $black);
-         
-        
+    imagefilledrectangle($im, 0, 395, 400, 400, $black);
+
+
     // Save the image
     imagepng($im, './images/bar_3.png');
     imagedestroy($im);
@@ -847,42 +881,193 @@ private function bar_4(){
     $black = imagecolorallocate($im, 0, 0, 0);
     $website = DB::table('social_media')->get();
     $count = DB::table('social_media')->select('value')->count();
-        $i = 0;
-        foreach ($website as $key => $dt) {
-            $val[$i] = $dt->value;
-            $i++;
-        }
-        if($count >= 10){
-            $devided = (400 / $count)-10;
-        }else{
+    $i = 0;
+    foreach ($website as $key => $dt) {
+        $val[$i] = $dt->value;
+        $i++;
+    }
+    if($count >= 10){
+        $devided = (400 / $count)-10;
+    }else{
         $devided = (400 / 10)-10;
-        }
-        $a = 0;
-        $b = 0;
-        $c = $devided;
-        
-        $sum = array_sum($val);
-        imagefilledrectangle($im, 0, 0, 400, 400, $white);
-        foreach ($val as $key => $v) {
-            $per[$a] = round(($v / $sum) * 400);
-            $nil[$a] = (400 - $per[$a]) -5;
-            imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
-            $b += $devided;
-            $c += $devided;
-            $c += 10;
-            $b += 10;
-            $a++;
-        }
+    }
+    $a = 0;
+    $b = 0;
+    $c = $devided;
+
+    $sum = array_sum($val);
+    imagefilledrectangle($im, 0, 0, 400, 400, $white);
+    foreach ($val as $key => $v) {
+        $per[$a] = round(($v / $sum) * 400);
+        $nil[$a] = (400 - $per[$a]) -5;
+        imagefilledrectangle($im, $b, 400, $c, $nil[$a], $Palette[$a]);
+        $b += $devided;
+        $c += $devided;
+        $c += 10;
+        $b += 10;
+        $a++;
+    }
         // dd($nil);
          // imagefilledrectangle($im, 0, 400, 60, 100, $Palette[0]);
          // imagefilledrectangle($im, 70, 400, 130, 200, $Palette[1]);
          // imagefilledrectangle($im, 140, 400, 210, 200, $Palette[2]);
          // imagefilledrectangle($im, 220, 400, 290, 80, $Palette[3]);
-         imagefilledrectangle($im, 0, 395, 400, 400, $black);
-         
-        
+    imagefilledrectangle($im, 0, 395, 400, 400, $black);
+
+
     // Save the image
     imagepng($im, './images/bar_4.png');
     imagedestroy($im);
+}
+private function img_table1(){
+
+    $registrars = DB::table('registrars')->get();
+    $f = 0;
+    foreach ($registrars as $key => $dt) {
+        $active[$f] = $dt->active;
+        $not_active[$f] = $dt->not_active;
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $green = imagecolorallocate($im, 40, 167, 69);
+        imagefilledrectangle($im, 0, 0, 100, 20, $green);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $active[$f], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_res-$f.png");
+        imagedestroy($im);
+        $f++;
+    }
+}
+private function img_table2(){
+
+        $sub = DB::table('subdomain')->get();
+        $k = 0;
+        foreach ($sub as $key => $dt) {
+            $val10[$k] = $dt->value;
+            $k++;
+        }
+        $sum10 = array_sum($val10);
+    $z =0;
+    foreach ($sub as $key => $dt) {
+        $val[$z] = $dt->value;
+        $per[$z] = round(($val[$z]/ $sum10)* 100);
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $white = imagecolorallocate($im, 255, 255, 255);
+        
+        imagefilledrectangle($im, 0, 0, 100, 20, $white);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $per[$z], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_sub-$z.png");
+        imagedestroy($im);
+        $z++;
+    }
+}
+private function img_table3(){
+
+   $mx_domains = DB::table('mx_domains')->get();
+        $n = 0;
+        foreach ($mx_domains as $key => $dt) {
+            $val13[$n] = $dt->value;
+            $n++;
+        }
+        $sum13 = array_sum($val13);
+    $f = 0;
+    foreach ($mx_domains as $key => $dt) {
+        $val[$f] = $dt->value;
+        $per[$f] = round(($val[$f] / $sum13) * 100);
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $white = imagecolorallocate($im, 255, 255, 255);
+        imagefilledrectangle($im, 0, 0, 100, 20, $white);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_mx-$f.png");
+        imagedestroy($im);
+        $f++;
+    }
+}
+private function img_table4(){
+
+   $dns_ns = DB::table('dns_ns')->get();
+        $o = 0;
+        foreach ($dns_ns as $key => $dt) {
+            $val14[$o] = $dt->value;
+            $o++;
+        }
+        $sum14 = array_sum($val14);
+    $f = 0;
+    foreach ($dns_ns as $key => $dt) {
+        $val[$f] = $dt->value;
+        $per[$f] = round(($val[$f] / $sum14) * 100);
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $white = imagecolorallocate($im, 255, 255, 255);
+        imagefilledrectangle($im, 0, 0, 100, 20, $white);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_ns-$f.png");
+        imagedestroy($im);
+        $f++;
+    }
+}
+private function img_table5(){
+
+   $complet = DB::table('completeness')->get();
+    $f = 0;
+    foreach ($complet as $key => $dt) {
+        $val[$f] = $dt->value;
+        
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $white = imagecolorallocate($im, 255, 255, 255);
+        imagefilledrectangle($im, 0, 0, 100, 20, $white);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $val[$f], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_com-$f.png");
+        imagedestroy($im);
+        $f++;
+    }
+}
+private function img_table6(){
+
+   $ssl = DB::table('ssl_type')->get();
+        $p = 0;
+        foreach ($ssl as $key => $dt) {
+            $val15[$p] = $dt->value;
+            $p++;
+        }
+        $sum15 = array_sum($val15);
+    $f = 0;
+    foreach ($ssl as $key => $dt) {
+        $val[$f] = $dt->value;
+        $per[$f] = round(($val[$f] / $sum15) * 100);
+        $im = imagecreatetruecolor(100, 20);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        $blue = imagecolorallocate($im, 51, 204, 255);
+        $white = imagecolorallocate($im, 255, 255, 255);
+        imagefilledrectangle($im, 0, 0, 100, 20, $white);
+        imagefilledrectangle($im, 0, 0, 3, 20, $black);
+        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+
+         // Save the image
+        imagepng($im, "./images/table_ssl-$f.png");
+        imagedestroy($im);
+        $f++;
+    }
 }
 }
