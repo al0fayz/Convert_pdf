@@ -1045,7 +1045,7 @@ private function img_table5(){
 }
 private function img_table6(){
 
-   $ssl = DB::table('ssl_type')->get();
+   $ssl = DB::table('ssl_issue')->get();
         $p = 0;
         foreach ($ssl as $key => $dt) {
             $val15[$p] = $dt->value;
@@ -1056,6 +1056,9 @@ private function img_table6(){
     foreach ($ssl as $key => $dt) {
         $val[$f] = $dt->value;
         $per[$f] = round(($val[$f] / $sum15) * 100);
+        if($per[$f] <= 0){
+            $per[$f] = 4;
+        }
         $im = imagecreatetruecolor(100, 20);
         $black = imagecolorallocate($im, 0, 0, 0);
         $blue = imagecolorallocate($im, 51, 204, 255);

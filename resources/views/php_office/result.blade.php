@@ -344,23 +344,28 @@ $un = round(($sum4 / $tot) *100);
   <tbody>
     <tr>
       <td><b>Hosting</b></td>
-      <td id="one"></td>
+      <td></td>
       <td><b>Domains</b></td>
       <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-0.png'}}" /></td>
       <td><b>Active</b></td>
       <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-1.png'}}" /></td>
       <td><b>Not active</b></td>
     </tr>
+    @php $rz09 = 0;
+    @endphp
     @foreach($regis  as $dt)
     <tr>
       <td> {{ $dt->hosting }} </td>
-      <td id="one"></td>
+      <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_res-'. $rz09 .'.png'}}" /></td>
       <td> {{ $dt->domains }} </td>
       <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-0.png'}}" /></td>
       <td> {{ $dt->active }} </td>
       <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-1.png'}}" /></td>
       <td> {{ $dt->not_active }} </td>
     </tr>
+    @php
+    $rz09++;
+    @endphp
     @endforeach
   </tbody>
 </table>
@@ -457,19 +462,19 @@ $un = round(($sum4 / $tot) *100);
 
 <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_4.png'}}" />
 <table id="table_left">
-  @php $z30 =0;
+  @php $z301 =0;
   @endphp
-  @foreach ($prob as $dt)
+  @foreach ($country as $dt)
   @php
-  $pr_p = round(($dt->value / $sum7) * 100);
+  $pr_p = round(($dt->value / $sum8) * 100);
   @endphp
   <tr>
-    <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $z30 .'.png'}}" /></td>
-    <td>{{ $dt->name }}</td>
+    <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $z301 .'.png'}}" /></td>
+    <td>{{ $dt->country }}</td>
     <td>{{ $dt->value }}</td>
     <td><b>{{ $pr_p }}%</b></td>
   </tr>
-  @php  $z30++;
+  @php  $z301++;
   @endphp
   @endforeach
   <tr>
@@ -519,16 +524,21 @@ $un = round(($sum4 / $tot) *100);
   </p>
   <table class="full">
     <tbody>
+      @php $su9 =0;
+      @endphp
       @foreach ($sub as $dt)
       @php
       $pr_s = round(($dt->value / $sum10) * 100);
       @endphp
       <tr>
         <td>{{ $dt->name }}</td>
-        <td></td>
+        <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_sub-' . $su9 . '.png'}}" /></td>
         <td>({{ $dt->value }})</td>
         <td><b>{{ $pr_s }}%</b></td>
       </tr>
+      @php
+      $su9++;
+      @endphp
       @endforeach
       <tr>
       </tbody>
@@ -588,7 +598,7 @@ $un = round(($sum4 / $tot) *100);
     <h4 id="title">Top 5 MX domians</h4>
     <table class="full">
       <tbody>
-       @php $vk0 =0;
+       @php $vk87 =0;
        @endphp
        @foreach ($mx as $dt)
        @php
@@ -596,11 +606,11 @@ $un = round(($sum4 / $tot) *100);
        @endphp
        <tr>
         <td>{{ $dt->name }}</td>
-        <td></td>
+        <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_mx-' . $vk87 . '.png'}}" /></td>
         <td>{{ $dt->value }}</td>
         <td><b>{{ $per_mx }}%</b></td>
       </tr>
-      @php  $vk0++;
+      @php  $vk87++;
       @endphp
       @endforeach
     </tbody>
@@ -622,7 +632,7 @@ $un = round(($sum4 / $tot) *100);
   <h5>Top 10 DNS NS domains</h5>
   <table class="full">
     <tbody>
-      @php $vk0 =0;
+      @php $opo =0;
       @endphp
       @foreach ($dns_ns as $dt)
       @php
@@ -630,11 +640,11 @@ $un = round(($sum4 / $tot) *100);
       @endphp
       <tr>
         <td>{{ $dt->name }}</td>
-        <td></td>
+        <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_ns-' . $opo . '.png'}}" /></td>
         <td>{{ $dt->value }}</td>
         <td><b>{{ $per_ns }}%</b></td>
       </tr>
-      @php  $vk0++;
+      @php  $opo++;
       @endphp
       @endforeach
     </tbody>
@@ -677,14 +687,23 @@ $un = round(($sum4 / $tot) *100);
   <h4 id="title">Completeness</h4>
   <table class="full">
     <tbody>
-
+      @php
+      $mv = 0;
+      @endphp
       @foreach ($complet as $dt)
+      @php
+      $val[$mv] = $dt->value;
+      $per[$mv] = round($val[$mv] /1000);
+      @endphp
       <tr>
         <td>{{ $dt->name }}</td>
-        <td></td>
+        <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_com-' . $mv . '.png'}}" /></td>
         <td>{{ $dt->value }}</td>
-        <td><b>%</b></td>
+        <td><b>{{ $per[$mv] }}%</b></td>
       </tr>
+      @php
+      $mv++;
+      @endphp
       @endforeach
     </tbody>
   </table>
@@ -747,7 +766,7 @@ $un = round(($sum4 / $tot) *100);
   <h5>Top 10 SSL issuer organization</h5>
   <table class="full">
     <tbody>
-      @php $vkl =0;
+      @php $iui =0;
       @endphp
       @foreach ($issue as $dt)
       @php
@@ -755,11 +774,11 @@ $un = round(($sum4 / $tot) *100);
       @endphp
       <tr>
         <td>{{ $dt->name }}</td>
-        <td></td>
+        <td><img style="position:relative; width:100px; height:15px;" src="{{public_path() . '/images/table_ssl-' . $iui . '.png'}}" /></td>
         <td>{{ $dt->value }}</td>
         <td><b>{{ $per_iss }}%</b></td>
       </tr>
-      @php  $vkl++;
+      @php  $iui++;
       @endphp
       @endforeach
     </tbody>
@@ -789,9 +808,109 @@ $un = round(($sum4 / $tot) *100);
     @endphp
     @endforeach
   </table>
-  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/sp-' . $ol . '.png'}}" />
-  <p class="justify">
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/cake_lang.png'}}" class="image_right" />
+  <p class="justify" style="position: relative; clear: both;">
     We currently recognize languages from 50 different countries. Our crawler determines the language of a website by using an n-gram model. An n-gram is a contiguous sequence of n items from a given sequence of text or speech. An n-gram model models sequences, notably natural languages, using the statistical properties of n-gram. The chart above shows the top there detected languages.
+  </p>
+  <h4 id="title">Countries</h4>
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/bar_3.png'}}" />
+  <table id="content">
+    @php $dx =0;
+    @endphp
+    @foreach ($countries as $dt)
+    @php
+    $per_co = round(($dt->value / $sum18) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $dx . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_co }}%</b></td>
+    </tr>
+    @php  $dx++;
+    @endphp
+    @endforeach
+  </table>
+  <p class="justify">
+    Country refers to the land where the website is located or where the website originated from. We determine the country of a website based on multiple variables such as hosting country. language on the website , top-level domain and contact details.
+  </p>
+  <br>
+  <h4 id="title">Pages per website</h4>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_11.png'}}" />
+  <table id="table_left">
+    @php $dx1 =0;
+    @endphp
+    @foreach ($page as $dt)
+    @php
+    $per_pg = round(($dt->value / $sum19) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $dx1 . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_pg }}%</b></td>
+    </tr>
+    @php  $dx1++;
+    @endphp
+    @endforeach
+  </table>
+  <p class="justify">
+    Pages refers to the estimated amount of pages a website contains. it is accurate up to 500 pages, which means larger website are indexed at 500 pages. We review the internal links to provide an etimation of the amount of pages a website contains.
+  </p>
+  <br><br>
+
+  <!-- page 14 -->
+  <h4 id="title">Social Media</h4>
+  <p class="justify">
+    Many people and companies use social media these days. Social media allows individuals to interact with one another, exchanging details about their lives such as biographical data, professional information, personal photos and up-to-the-minute thoghts. Website use social media to interact with their (potential) customers.
+  </p>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_12.png'}}" />
+
+  <h6 class="left">Yes</h6>
+  <h6 class="right">No</h6>
+  <h4 id="title">Social media per website type</h4>
+  <img style="position:relative; width:200px; height:200px;" src="{{public_path() . '/images/bar_4.png'}}" />
+  <table id="content">
+    @php $cvx =0;
+    @endphp
+    @foreach ($social_type as $dt)
+    @php
+    $per_typ3 = round(($dt->value / $sum21) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $cvx . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_typ3 }}%</b></td>
+    </tr>
+    @php  $cvx++;
+    @endphp
+    @endforeach
+  </table>
+  <p class="justify">
+    The usage of social media differs per website type. Bussines and eCommerce websites tend to have a higher penetration of social media because they use social media to engage with their audience. The chart above shows the penetration of different platforms for each website type.
+  </p>
+  <h4 id="title">Social media platforms</h4>
+  <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_13.png'}}" />
+  <table id="table_left">
+    @php $cv =0;
+    @endphp
+    @foreach ($social_media as $dt)
+    @php
+    $per_social = round(($dt->value / $sum20) * 100);
+    @endphp
+    <tr>
+      <td id="one"><img style="position:relative; width:10px; height:10px;" src="{{public_path() . '/images/sp-' . $cv . '.png'}}" /></td>
+      <td>{{ $dt->name }}</td>
+      <td>{{ $dt->value }}</td>
+      <td><b>{{ $per_social }}%</b></td>
+    </tr>
+    @php  $cv++;
+    @endphp
+    @endforeach
+  </table>
+  <p class="justify">
+    This chart shows the available social media platforms that are found on the homepages of available website. There are many social media platforms available like Facebook, Twiter, and Linkedin. we determine the social media platform based upon the domain name in the social media profile.
   </p>
 </div> <!-- container -->
 </body>
