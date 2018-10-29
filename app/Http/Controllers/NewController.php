@@ -45,13 +45,22 @@ class NewController extends Controller
         $this->img_table4();
         $this->img_table5();
         $this->img_table6();
+        // $this->cake_1();
+        // $this->cake_2();
+        // $this->cake_3();
+        // $this->cake_4();
+        // $this->cake_5();
+        // $this->cake_6();
+        // $this->cake_7();
+        // $this->cake_8();
+        // $this->cake_9();
         return view('admin.dashboard');
-       
+
     }
     private function image_1(){
-     $response = DB::table('response')->get();
-     $a = 0;
-     foreach ($response as $key => $dt) {
+       $response = DB::table('response')->get();
+       $a = 0;
+       foreach ($response as $key => $dt) {
         $val1[$a] = $dt->value;
         $name1[$a] = $dt->name;
         $a++;
@@ -943,13 +952,13 @@ private function img_table1(){
 }
 private function img_table2(){
 
-        $sub = DB::table('subdomain')->get();
-        $k = 0;
-        foreach ($sub as $key => $dt) {
-            $val10[$k] = $dt->value;
-            $k++;
-        }
-        $sum10 = array_sum($val10);
+    $sub = DB::table('subdomain')->get();
+    $k = 0;
+    foreach ($sub as $key => $dt) {
+        $val10[$k] = $dt->value;
+        $k++;
+    }
+    $sum10 = array_sum($val10);
     $z =0;
     foreach ($sub as $key => $dt) {
         $val[$z] = $dt->value;
@@ -971,107 +980,613 @@ private function img_table2(){
 }
 private function img_table3(){
 
-   $mx_domains = DB::table('mx_domains')->get();
-        $n = 0;
-        foreach ($mx_domains as $key => $dt) {
-            $val13[$n] = $dt->value;
-            $n++;
-        }
-        $sum13 = array_sum($val13);
-    $f = 0;
-    foreach ($mx_domains as $key => $dt) {
-        $val[$f] = $dt->value;
-        $per[$f] = round(($val[$f] / $sum13) * 100);
-        $im = imagecreatetruecolor(100, 20);
-        $black = imagecolorallocate($im, 0, 0, 0);
-        $blue = imagecolorallocate($im, 51, 204, 255);
-        $white = imagecolorallocate($im, 255, 255, 255);
-        imagefilledrectangle($im, 0, 0, 100, 20, $white);
-        imagefilledrectangle($im, 0, 0, 3, 20, $black);
-        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+ $mx_domains = DB::table('mx_domains')->get();
+ $n = 0;
+ foreach ($mx_domains as $key => $dt) {
+    $val13[$n] = $dt->value;
+    $n++;
+}
+$sum13 = array_sum($val13);
+$f = 0;
+foreach ($mx_domains as $key => $dt) {
+    $val[$f] = $dt->value;
+    $per[$f] = round(($val[$f] / $sum13) * 100);
+    $im = imagecreatetruecolor(100, 20);
+    $black = imagecolorallocate($im, 0, 0, 0);
+    $blue = imagecolorallocate($im, 51, 204, 255);
+    $white = imagecolorallocate($im, 255, 255, 255);
+    imagefilledrectangle($im, 0, 0, 100, 20, $white);
+    imagefilledrectangle($im, 0, 0, 3, 20, $black);
+    imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
 
          // Save the image
-        imagepng($im, "./images/table_mx-$f.png");
-        imagedestroy($im);
-        $f++;
-    }
+    imagepng($im, "./images/table_mx-$f.png");
+    imagedestroy($im);
+    $f++;
+}
 }
 private function img_table4(){
 
-   $dns_ns = DB::table('dns_ns')->get();
-        $o = 0;
-        foreach ($dns_ns as $key => $dt) {
-            $val14[$o] = $dt->value;
-            $o++;
-        }
-        $sum14 = array_sum($val14);
-    $f = 0;
-    foreach ($dns_ns as $key => $dt) {
-        $val[$f] = $dt->value;
-        $per[$f] = round(($val[$f] / $sum14) * 100);
-        $im = imagecreatetruecolor(100, 20);
-        $black = imagecolorallocate($im, 0, 0, 0);
-        $blue = imagecolorallocate($im, 51, 204, 255);
-        $white = imagecolorallocate($im, 255, 255, 255);
-        imagefilledrectangle($im, 0, 0, 100, 20, $white);
-        imagefilledrectangle($im, 0, 0, 3, 20, $black);
-        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+ $dns_ns = DB::table('dns_ns')->get();
+ $o = 0;
+ foreach ($dns_ns as $key => $dt) {
+    $val14[$o] = $dt->value;
+    $o++;
+}
+$sum14 = array_sum($val14);
+$f = 0;
+foreach ($dns_ns as $key => $dt) {
+    $val[$f] = $dt->value;
+    $per[$f] = round(($val[$f] / $sum14) * 100);
+    $im = imagecreatetruecolor(100, 20);
+    $black = imagecolorallocate($im, 0, 0, 0);
+    $blue = imagecolorallocate($im, 51, 204, 255);
+    $white = imagecolorallocate($im, 255, 255, 255);
+    imagefilledrectangle($im, 0, 0, 100, 20, $white);
+    imagefilledrectangle($im, 0, 0, 3, 20, $black);
+    imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
 
          // Save the image
-        imagepng($im, "./images/table_ns-$f.png");
-        imagedestroy($im);
-        $f++;
-    }
+    imagepng($im, "./images/table_ns-$f.png");
+    imagedestroy($im);
+    $f++;
+}
 }
 private function img_table5(){
 
-   $complet = DB::table('completeness')->get();
-    $f = 0;
-    foreach ($complet as $key => $dt) {
-        $val[$f] = $dt->value;
-        
-        $im = imagecreatetruecolor(100, 20);
-        $black = imagecolorallocate($im, 0, 0, 0);
-        $blue = imagecolorallocate($im, 51, 204, 255);
-        $white = imagecolorallocate($im, 255, 255, 255);
-        imagefilledrectangle($im, 0, 0, 100, 20, $white);
-        imagefilledrectangle($im, 0, 0, 3, 20, $black);
-        imagefilledrectangle($im, 3, 0, $val[$f], 20, $blue);
+ $complet = DB::table('completeness')->get();
+ $f = 0;
+ foreach ($complet as $key => $dt) {
+    $val[$f] = $dt->value;
+
+    $im = imagecreatetruecolor(100, 20);
+    $black = imagecolorallocate($im, 0, 0, 0);
+    $blue = imagecolorallocate($im, 51, 204, 255);
+    $white = imagecolorallocate($im, 255, 255, 255);
+    imagefilledrectangle($im, 0, 0, 100, 20, $white);
+    imagefilledrectangle($im, 0, 0, 3, 20, $black);
+    imagefilledrectangle($im, 3, 0, $val[$f], 20, $blue);
 
          // Save the image
-        imagepng($im, "./images/table_com-$f.png");
-        imagedestroy($im);
-        $f++;
-    }
+    imagepng($im, "./images/table_com-$f.png");
+    imagedestroy($im);
+    $f++;
+}
 }
 private function img_table6(){
 
-   $ssl = DB::table('ssl_issue')->get();
-        $p = 0;
-        foreach ($ssl as $key => $dt) {
-            $val15[$p] = $dt->value;
-            $p++;
-        }
-        $sum15 = array_sum($val15);
-    $f = 0;
-    foreach ($ssl as $key => $dt) {
-        $val[$f] = $dt->value;
-        $per[$f] = round(($val[$f] / $sum15) * 100);
-        if($per[$f] <= 0){
-            $per[$f] = 4;
-        }
-        $im = imagecreatetruecolor(100, 20);
-        $black = imagecolorallocate($im, 0, 0, 0);
-        $blue = imagecolorallocate($im, 51, 204, 255);
-        $white = imagecolorallocate($im, 255, 255, 255);
-        imagefilledrectangle($im, 0, 0, 100, 20, $white);
-        imagefilledrectangle($im, 0, 0, 3, 20, $black);
-        imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
+ $ssl = DB::table('ssl_issue')->get();
+ $p = 0;
+ foreach ($ssl as $key => $dt) {
+    $val15[$p] = $dt->value;
+    $p++;
+}
+$sum15 = array_sum($val15);
+$f = 0;
+foreach ($ssl as $key => $dt) {
+    $val[$f] = $dt->value;
+    $per[$f] = round(($val[$f] / $sum15) * 100);
+    if($per[$f] <= 0){
+        $per[$f] = 4;
+    }
+    $im = imagecreatetruecolor(100, 20);
+    $black = imagecolorallocate($im, 0, 0, 0);
+    $blue = imagecolorallocate($im, 51, 204, 255);
+    $white = imagecolorallocate($im, 255, 255, 255);
+    imagefilledrectangle($im, 0, 0, 100, 20, $white);
+    imagefilledrectangle($im, 0, 0, 3, 20, $black);
+    imagefilledrectangle($im, 3, 0, $per[$f], 20, $blue);
 
          // Save the image
-        imagepng($im, "./images/table_ssl-$f.png");
-        imagedestroy($im);
-        $f++;
+    imagepng($im, "./images/table_ssl-$f.png");
+    imagedestroy($im);
+    $f++;
+}
+}
+private function cake_1(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('response')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $name1[$a] = $dt->name;
+        $a++;
     }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_res.png');
+    imagedestroy($image);
+}
+private function cake_2(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('developed')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_dev.png');
+    imagedestroy($image);
+}
+private function cake_3(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('undeveloped')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_un.png');
+    imagedestroy($image);
+}
+private function cake_4(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('heartbeat')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_heart.png');
+    imagedestroy($image);
+}
+private function cake_5(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('probability')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_prob.png');
+    imagedestroy($image);
+}
+private function cake_6(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('distribution')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_dis.png');
+    imagedestroy($image);
+}
+private function cake_7(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('distribution')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_priv.png');
+    imagedestroy($image);
+}
+private function cake_8(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('ssl_type')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_ssl.png');
+    imagedestroy($image);
+}
+private function cake_9(){
+        // create image
+    $image = imagecreatetruecolor(1000, 1000);
+    $color = [
+        "0" => imagecolorallocate($image, 51, 204, 255),
+        "1" => imagecolorallocate($image, 40, 167, 69),
+        "2" => imagecolorallocate($image, 255, 153, 51),
+        "3" => imagecolorallocate($image, 204, 0, 102),
+        "4" => imagecolorallocate($image, 204, 51, 0),
+        "5" => imagecolorallocate($image, 255, 255, 0),
+        "6" => imagecolorallocate($image, 0, 0, 255),
+        "7" => imagecolorallocate($image, 255, 0, 0),
+        "8" => imagecolorallocate($image, 102, 0, 102),
+        "9" => imagecolorallocate($image, 153, 153, 102)
+    ];
+    $white = imagecolorallocate($image, 255, 255, 255);
+    $response = DB::table('language')->get();
+    $a = 0;
+    foreach ($response as $key => $dt) {
+        $val1[$a] = $dt->value;
+        $a++;
+    }
+    $sum1 = array_sum($val1);
+    $ax = 0;
+    $cz = 0;
+    foreach ($response as $key => $v) {
+        $val[$ax] = $v->value;
+        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $cz += $p[$ax];
+        if ($cz <= 90){
+            $val[$ax] = 90 - $cz ;
+        }else{
+            $val[$ax] = $cz - 90;
+        }
+        $ax++;
+    }
+    $end = end($val);
+    if ($end != 270){
+        $end = 270;
+    }
+    array_pop($val);
+    array_push($val, $end);
+    imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+    $b = 0;
+    $c = 270;
+    foreach ($val as $key => $v) {
+        imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+        $c = $val[$b];
+        $b++;
+    }
+    imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+ // Save the image
+    imagepng($image, './images/cake_lang.png');
+    imagedestroy($image);
 }
 }
