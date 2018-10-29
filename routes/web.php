@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-	return view('welcome');
-});
+// Route::get('/', function () {
+// 	return view('welcome');
+// });
 
 Route::get('/page1', 'PageController@page_1');
 Route::get('/page2', 'PageController@page2');
@@ -65,5 +65,7 @@ Route::get('/doc', 'ReportController@report_doc');
 Route::get('/doc1', 'DocController@print');
 
 Route::get('/chart_render', 'PageController@chartjs1');
-Route::get('/print_new', 'PrintController@index');
+Route::get('/print_word', 'PrintController@index');
 Route::get('/print_pdf', 'PrintController@pdf');
+Route::get('/print_odt', 'PrintController@odt');
+Route::get('/', 'NewController@index');

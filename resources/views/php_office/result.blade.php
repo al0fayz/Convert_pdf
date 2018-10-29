@@ -721,6 +721,7 @@ $un = round(($sum4 / $tot) *100);
   <img style="position:relative; width:100%; height:30px;" src="{{public_path() . '/images/span_9.png'}}" />
   <p class="left">Yes</p>
   <p class="right">No</p>
+  <br><br>
   <p class="justify">
     When we index a website we always start by resolving the hostname. we check if there is a valid response and obtain the IP address. We use this IP address to setup  an SSL connection betwen the crawler and the server. After authentication the spider retrieves all the SSL certificate information such as the SSL type, issuer organization, and expiration dates.
   </p>

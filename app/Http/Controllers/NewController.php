@@ -45,6 +45,7 @@ class NewController extends Controller
         $this->img_table4();
         $this->img_table5();
         $this->img_table6();
+        return view('admin.dashboard');
        
     }
     private function image_1(){
