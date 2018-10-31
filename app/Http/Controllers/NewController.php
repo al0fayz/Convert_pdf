@@ -45,6 +45,7 @@ class NewController extends Controller
         $this->img_table4();
         $this->img_table5();
         $this->img_table6();
+        // $this->cake_coba();
         // $this->cake_1();
         // $this->cake_2();
         // $this->cake_3();
@@ -1166,8 +1167,8 @@ private function cake_2(){
     $ax = 0;
     $cz = 0;
     foreach ($response as $key => $v) {
-        $val[$ax] = $v->value;
-        $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+        $val1[$ax] = $v->value;
+        $p[$ax] = round((($val1[$ax] /$sum1)*100)*3.6);
         $cz += $p[$ax];
         if ($cz <= 90){
             $val[$ax] = 90 - $cz ;
@@ -1177,12 +1178,14 @@ private function cake_2(){
         $ax++;
     }
     $end = end($val);
-    if ($end != 270){
+    if ($end != 270 && $end != 0){
         $end = 270;
+    }elseif ($end == 0) {
+        $end = 0;
     }
     array_pop($val);
     array_push($val, $end);
-    
+
     imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
     $b = 0;
     $c = 270;
@@ -1589,4 +1592,58 @@ private function cake_9(){
     imagepng($image, './images/cake_lang.png');
     imagedestroy($image);
 }
+// private function cake_coba(){
+//         // create image
+//     $image = imagecreatetruecolor(1000, 1000);
+//     $color = [
+//         "0" => imagecolorallocate($image, 51, 204, 255),
+//         "1" => imagecolorallocate($image, 40, 167, 69),
+//         "2" => imagecolorallocate($image, 255, 153, 51),
+//         "3" => imagecolorallocate($image, 204, 0, 102),
+//         "4" => imagecolorallocate($image, 204, 51, 0),
+//         "5" => imagecolorallocate($image, 255, 255, 0),
+//         "6" => imagecolorallocate($image, 0, 0, 255),
+//         "7" => imagecolorallocate($image, 255, 0, 0),
+//         "8" => imagecolorallocate($image, 102, 0, 102),
+//         "9" => imagecolorallocate($image, 153, 153, 102)
+//     ];
+//     $white = imagecolorallocate($image, 255, 255, 255);
+//     $response = DB::table('language')->get();
+//     $data = [7, 9, 8, 0];
+//     $sum1 = array_sum($data);
+//     $ax = 0;
+//     $cz = 0;
+//     foreach ($data as $key => $v) {
+//         $val[$ax] = $v[$ax];
+//         $p[$ax] = round((($val[$ax] /$sum1)*100)*3.6);
+//         $cz += $p[$ax];
+//         if ($cz <= 90){
+//             $val[$ax] = 90 - $cz ;
+//         }else{
+//             $val[$ax] = $cz - 90;
+//         }
+//         $ax++;
+//     }
+//     dd($val);
+//     $end = end($val);
+//     if ($end != 270){
+//         $end = 270;
+//     }
+//     array_pop($val);
+//     array_push($val, $end);
+//     dd($val);
+//     imagefilledrectangle($image, 0, 0, 1000, 1000, $white);
+//     $b = 0;
+//     $c = 270;
+//     foreach ($val as $key => $v) {
+//         imagefilledarc($image, 500, 500, 1000, 1000, $c, $val[$b], $color[$b], IMG_ARC_PIE);
+//         $c = $val[$b];
+//         $b++;
+//     }
+//     imagefilledellipse($image, 500, 500, 500, 500, $white);
+
+//  // Save the image
+//     imagepng($image, './images/cake_coba.png');
+//     imagedestroy($image);
+// }
 }
